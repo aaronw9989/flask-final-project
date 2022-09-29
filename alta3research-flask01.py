@@ -14,6 +14,9 @@ from flask import jsonify
 
 import requests
 
+# used to render templates
+from flask import render_template
+
 import json
 
 app = Flask(__name__)
@@ -87,6 +90,13 @@ def pokemon_lookup(name):
         pokemon_info["moves"] = pokemon["moves"]
 
     return jsonify(pokemon_info)
+
+
+# render a dynamic webpage that displays your favorite pokemon
+@app.route("/favorite/<pokemon_name>")
+def favorite_pokemon(pokemon_name):
+    # render the template and add the favorite pokemon name
+    return render_template("favorite_pokemon.html", favorite_pokemon_name = pokemon_name)
 
 
 if __name__ == "__main__":
