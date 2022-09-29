@@ -1,0 +1,12 @@
+{
+  "name": "charmander",
+  "id": 4,
+  "type": "fire",
+  "height": 6,
+  "weight": 85,
+  "moves": [
+    "fire-punch",
+    "thunder-punch",
+    "scratch"
+  ]
+}

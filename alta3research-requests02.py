@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-""" Final Project Flask Application """
+""" Final Project - Flask Application
+    Aaron Williams
+    September, 29, 2022 """
 
 
 import requests
@@ -8,40 +10,72 @@ from pprint import pprint
 
 def main():
     print("Welcome to Aaron's Final Project!")
-    test_pokemon_name_api()
+
+    # test empty path
+    print('NOTE: This is an example of what our pokemon query should return')
+    test_empty_path_api()
+
+    # test our pokemon lookup api
+    # test_pokemon_lookup()
+
+    # Things to do:
+    # cookie data
+    # display moves
+    # add menu
+    # clone project to tmux and test
+
 
 
 def test_empty_path_api():
     # define our url
     URL = "http://127.0.0.1:2224/"
     # make api request to our endpoint
-    resp = requests.get(URL).json()
-    #display the results
-    pprint(resp)
+    test_pokemon = requests.get(URL).json()
+
+    # display our returned pokemon
+    display_pokemon_info(test_pokemon)
 
 
 def test_pokemon_api():
     # endpoint of our pokemon api
     POKEMON_API = "http://127.0.0.1:2224/pokemon"
     # make a get request to our pokemon api
-    pokemon_response = requests.get(POKEMON_API).json()
-    # print the output of our request
-    pprint(pokemon_response)
+    test_pokemon = requests.get(POKEMON_API).json()
 
 
-def test_pokemon_name_api():
+
+
+
+def test_pokemon_lookup(name="squirtle"):
     # endpoint of our pokemon api
-    POKEMON_API_NAME = "http://127.0.0.1:2224/pokemon/squirtle"
-    # make a get request to our pokemon api
-    pokemon_name = requests.get(POKEMON_API_NAME).json()
-    # print the output of our request
-    # pprint(pokemon_name)
+    POKEMON_API_NAME = "http://127.0.0.1:2224/pokemon/" + name
 
-    #print(pokemon_name)
-    name = pokemon_name["forms"][0]["name"]
-    pokemon_name_type = pokemon_name["types"][0]["type"]["name"]
-    print(f'Pokemon Name: {name}')
-    print(f'Pokemon Type: {pokemon_name_type}')
+    # make a get request to our pokemon api
+    # and convert to a python dictionary object
+    ret_pokemon = requests.get(POKEMON_API_NAME).json()
+
+    # print out our pokemon
+    display_pokemon_info(ret_pokemon)
+
+
+def display_pokemon_info(pokemon):
+    name = pokemon["name"]
+    name = name.capitalize()
+    pokemon_id = pokemon["id"]
+    pokemon_type = pokemon["type"]
+    pokemon_type = pokemon_type.capitalize()
+    height = pokemon["height"]
+    weight = pokemon["weight"]
+    moves = pokemon["moves"]
+
+    print('----- POKEMON INFO -----')
+    print(f'Name: {name}')
+    print(f'ID: {pokemon_id}')
+    print(f'Type: {pokemon_type}')
+    print(f'Height: {height}')
+    print(f'Weight: {weight}')
+    # print(f'Moves: {moves}')
+    print('------------------------')
 
 
 if __name__ == "__main__":
