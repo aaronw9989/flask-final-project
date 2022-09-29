@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+
 """ Final Project - Flask Application
     Aaron Williams
     September, 29, 2022 """
@@ -11,19 +13,19 @@ from pprint import pprint
 def main():
     print("Welcome to Aaron's Final Project!")
 
-    # test empty path
+    # test empty path endpoint
+    # this call does NOT depend on an external api
     print('NOTE: This is an example of what our pokemon query should return')
     test_empty_path_api()
 
     # test our pokemon lookup api
-    # test_pokemon_lookup()
+    # this allows us to lookup a pokemon with a given name
+    test_pokemon_lookup()
 
     # Things to do:
-    # cookie data
-    # display moves
+    # add method to test favorite pokemon endpoint
     # add menu
     # clone project to tmux and test
-
 
 
 def test_empty_path_api():
@@ -31,7 +33,6 @@ def test_empty_path_api():
     URL = "http://127.0.0.1:2224/"
     # make api request to our endpoint
     test_pokemon = requests.get(URL).json()
-
     # display our returned pokemon
     display_pokemon_info(test_pokemon)
 
@@ -41,18 +42,17 @@ def test_pokemon_api():
     POKEMON_API = "http://127.0.0.1:2224/pokemon"
     # make a get request to our pokemon api
     test_pokemon = requests.get(POKEMON_API).json()
-
-
-
+    # print out our pokemon
+    pprint(test_pokemon)
 
 
 def test_pokemon_lookup(name="squirtle"):
     # endpoint of our pokemon api
-    POKEMON_API_NAME = "http://127.0.0.1:2224/pokemon/" + name
+    POKEMON_LOOKUP_ENDPOINT = "http://127.0.0.1:2224/pokemon/" + name
 
     # make a get request to our pokemon api
     # and convert to a python dictionary object
-    ret_pokemon = requests.get(POKEMON_API_NAME).json()
+    ret_pokemon = requests.get(POKEMON_LOOKUP_ENDPOINT).json()
 
     # print out our pokemon
     display_pokemon_info(ret_pokemon)
@@ -74,7 +74,9 @@ def display_pokemon_info(pokemon):
     print(f'Type: {pokemon_type}')
     print(f'Height: {height}')
     print(f'Weight: {weight}')
-    # print(f'Moves: {moves}')
+    print(f'Moves: ')
+    for move in moves:
+        print(f'\t {move}')
     print('------------------------')
 
 
