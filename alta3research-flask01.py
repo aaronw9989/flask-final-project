@@ -31,14 +31,24 @@ def index():
 def pokemon_api():
     # define our api base url for the pokeapi
     POKEURL = "http://pokeapi.co/api/v2/pokemon/"
-
     # call the pokeapi
     pokemon = requests.get(f"{POKEURL}?limit=10")
     # convert the json object into a python dictionary
     pokemon = pokemon.json()
 
-    print(pokemon)
-    return pokemon
+    return jsonify(pokemon)
+@app.route("/pokemon/<name>")
+def get_pokemon(name):
+    # define our api base url for the pokeapi
+    URL = "http://pokeapi.co/api/v2/pokemon/" + name
+    # call the pokemon api
+    pokemon = requests.get(f"{URL}?limit=10")
+    # convert the json object into a python dictionary
+    pokemon = pokemon.json()
+
+    return jsonify(pokemon)
+
+
 
 
 if __name__ == "__main__":
