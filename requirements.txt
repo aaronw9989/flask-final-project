@@ -1,0 +1,12 @@
+
+Welcome to my pokemon flask application!
+
+To run this program please install the following python libraries:
+1. flask
+2. requests
+3. json
+4. pprint
+
+You also require the following files to run this program:
+/templates/favorite_pokemon.html
+test_pokemon.json

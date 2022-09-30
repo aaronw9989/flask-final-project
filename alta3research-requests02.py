@@ -8,8 +8,9 @@
 
 import requests
 from pprint import pprint
+import os
 
-
+# main method to execute our program
 def main():
     print("Welcome to Aaron's Final Project!")
 
@@ -22,8 +23,10 @@ def main():
     # this allows us to lookup a pokemon with a given name
     test_pokemon_lookup()
 
+    # test favorite pokemon endpoint
+    favorite_pokemon_api()
+
     # Things to do:
-    # add method to test favorite pokemon endpoint
     # add menu
     # clone project to tmux and test
 
@@ -56,6 +59,14 @@ def test_pokemon_lookup(name="squirtle"):
 
     # print out our pokemon
     display_pokemon_info(ret_pokemon)
+
+def favorite_pokemon_api(name="charizard"):
+    # endpoint of our pokemon api
+    POKEMON_API = "http://127.0.0.1:2224/favorite/" + name
+
+    # create a webpage to display our favorite pokemon name
+    # call the endpoint with the curl command
+    os.system("curl " + POKEMON_API + " -L")
 
 
 def display_pokemon_info(pokemon):
